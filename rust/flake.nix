@@ -58,6 +58,7 @@
           inherit inputs pkgs;
           modules = [
             (import ./devenv.nix { templateInputs = inputs; })
+            { setupRust.enable = true; }
           ];
         };
 

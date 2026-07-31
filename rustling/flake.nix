@@ -26,6 +26,7 @@
           inherit inputs pkgs;
           modules = [
             inputs.rust.devenvModules.default
+            { setupRust.enable = true; }
             ({ pkgs, ... }: {
               packages = [
                 pkgs.rustlings
