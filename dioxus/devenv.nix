@@ -38,8 +38,7 @@ in
   packages = with pkgs; [
     dioxus-cli # `dx`
     tailwindcss # standalone CLI, tanpa Node/npm
-    # dipakai `dx new`/`dx init` buat clone template
-    git 
+    git # dipakai `dx new`/`dx init` buat clone template
 
     pkg-config
     openssl
