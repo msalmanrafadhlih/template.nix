@@ -12,7 +12,7 @@
     };
 
     android-nixpkgs = {
-      url = "github:tadfisher/android-nixpkgs";
+      url = "github:tadfisher/android-nixpkgs/stable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
