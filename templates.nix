@@ -111,6 +111,17 @@ in
     ];
   };
 
+  dioxus-template = mkWelcomeText {
+    path = ./dioxus;
+    name = "Rust -- Dioxus Template development";
+    description = ''
+      A Rust project template that comes bundled 
+    '';
+    buildTools = [
+      "All esential rust tools"
+    ];
+  };
+
   rustling = mkWelcomeText {
     path = ./rustling;
     name = "Rust -- learning";
