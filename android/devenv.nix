@@ -15,12 +15,28 @@ let
   ndkVersion = "26.1.10909125";
   ndkAttr = "ndk-${lib.replaceStrings [ "." ] [ "-" ] ndkVersion}";
 
+  # CATATAN (Agustus 2026): SENGAJA pin ke versi eksplisit "21-0", BUKAN
+  # "cmdline-tools-latest". Revisi 22.0 ke atas nambahin binary native baru
+  # `android` (pengganti sdkmanager yang di-deprecate), tapi binary itu belum
+  # di-patchelf buat NixOS oleh recipe `installSdk` di android-nixpkgs
+  # (cuma di-wrapProgram buat env var, bukan di-patch ELF interpreter-nya).
+  # Akibatnya build android-sdk-env gagal: ".android-wrapped: cannot execute:
+  # required file not found". Ini KONSISTEN di semua channel (stable/canary
+  # sama persis untuk paket ini), jadi ganti channel/branch tidak membantu.
+  # 21-0 masih punya fix parsing avdmanager (butuh >=20.0) tapi belum kena
+  # masalah binary `android` di atas. Cek lagi nanti kalau mau balik ke
+  # "-latest" setelah android-nixpkgs nge-patch binary barunya.
+  cmdlineToolsAttr = "cmdline-tools-21-0";
+
   androidSdk = templateInputs.android-nixpkgs.sdk.${system} (
     sdkPkgs:
     with sdkPkgs;
     [
       sdkPkgs.${ndkAttr}
-      cmdline-tools-latest
+
+      sdkPkgs.${cmdlineToolsAttr}
+      # cmdline-tools-latest
+       
       platform-tools # adb, dipakai baik oleh emulator maupun device fisik via USB
       build-tools-35-0-0
       build-tools-36-0-0
